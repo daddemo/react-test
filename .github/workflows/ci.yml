@@ -1,0 +1,25 @@
+name: CI to build app and push to gh-pages 
+
+# Only trigger this script when pushing to dev 
+on:
+  push:
+    branches: [ dev ]
+
+# Specify the tasks to run when this script gets triggered
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Download dev branch
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: dev 
+
+    # Run deployment command (in package.json)
+    - name: Deploy with gh-pages
+      run: |
+        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
