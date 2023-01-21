@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          This is the dev branch 
+         This is main 
         </a>
       </header>
     </div>
