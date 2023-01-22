@@ -26,10 +26,10 @@
       "react-app/jest"
     ]
   },
-   "devDependencies": {
+  "devDependencies": {
     "gh-pages": "^4.0.0"
   },
- "browserslist": {
+  "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
