@@ -5,18 +5,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <div>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          This is dev
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-         This is dev branch
-        </a>
+        </div>
       </header>
     </div>
   );
