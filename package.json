@@ -2,7 +2,7 @@
   "name": "react-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://daddemo.github.io/react-test/",
+  "homepage": "https://daddemo.azurewebsites.net/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -26,10 +26,10 @@
       "react-app/jest"
     ]
   },
-   "devDependencies": {
+  "devDependencies": {
     "gh-pages": "^4.0.0"
   },
- "browserslist": {
+  "browserslist": {
     "production": [
       ">0.2%",
       "not dead",

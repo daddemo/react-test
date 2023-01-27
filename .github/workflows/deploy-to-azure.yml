@@ -1,36 +1,37 @@
-# File: .github/workflows/deploy-to-azure.yml
-name: Deploy to Azure 
+name: Blob storage website CI
 
-# Only trigger this script when pushing to main 
 on:
-  push:
-    branches: [ main ]
-
-env:
-  AZURE_WEBAPP_NAME: daddemo # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './build'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '18.x'                # set this to the node version to use
+    push:
+        branches: [ main ]
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-    - name: npm install, build, and test
+    - uses: actions/checkout@v3
+
+    # Run deployment command (in package.json)
+    - name: Build 
       run: |
-        # Build and test the project, then
-        # deploy to Azure Web App.
-        npm install
         npm run build 
-      working-directory: ./ 
-    - name: 'Deploy to Azure WebApp'
-      uses: azure/webapps-deploy@v2
-      with: 
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+            az storage blob upload-batch --account-name daddemostorageaccount --auth-mode key -d '$web' -s ./build
+ 
+    # - name: Purge CDN endpoint     
+      # uses: azure/CLI@v1
+      # with:
+        # inlineScript: |
+           # az cdn endpoint purge --content-paths  "/*" --profile-name "CDN_PROFILE_NAME" --name "CDN_ENDPOINT" --resource-group "RESOURCE_GROUP"
+
+  # Azure logout
+    - name: logout
+      run: |
+            az logout
+      if: always()
