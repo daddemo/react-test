@@ -17,6 +17,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
+            npm run build
             az storage blob upload-batch --account-name daddemostorageaccount --auth-mode key -d '$web' -s ./build
  
     # - name: Purge CDN endpoint     
