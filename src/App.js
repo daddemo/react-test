@@ -6,7 +6,7 @@ function App() {
       <header className="App-header">
         <div>
         <p>
-          This is main
+          This is dev 
         </p>
         </div>
       </header>
